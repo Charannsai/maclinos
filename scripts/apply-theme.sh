@@ -17,11 +17,14 @@ echo "========================================="
 echo "  MaclinOS Theme Applier"
 echo "========================================="
 
-# --- Verify KDE Plasma is running ---
-if ! pgrep -x plasmashell >/dev/null 2>&1; then
-    echo "ERROR: KDE Plasma shell is not running."
-    echo "       This script must be run in an active Plasma session."
-    exit 1
+# --- Check if KDE Plasma is running ---
+PLASMA_RUNNING=0
+if pgrep -x plasmashell >/dev/null 2>&1; then
+    PLASMA_RUNNING=1
+    echo "  Active Plasma session detected."
+else
+    echo "  ℹ️ Note: Plasma shell is not running yet."
+    echo "  Theme assets and configs will be installed for next session startup."
 fi
 
 # --- Paths ---
@@ -71,47 +74,61 @@ else
     echo "  ⚠ No wallpapers found in design/wallpapers/; skipping"
 fi
 
+# Helper to write KDE config using kwriteconfig6 or kwriteconfig5
+write_kconfig() {
+    local file="$1" group="$2" key="$3" value="$4"
+    if command -v kwriteconfig6 >/dev/null 2>&1; then
+        kwriteconfig6 --file "$file" --group "$group" --key "$key" "$value"
+    elif command -v kwriteconfig5 >/dev/null 2>&1; then
+        kwriteconfig5 --file "$file" --group "$group" --key "$key" "$value"
+    fi
+}
+
 # --- Apply KDE Settings ---
 echo "[6/7] Applying KDE configuration..."
 
 # Color scheme
-kwriteconfig6 --file kdeglobals --group General --key ColorScheme "MaclinOS"
+write_kconfig kdeglobals General ColorScheme "MaclinOS"
 
 # Window decoration: left-side traffic light buttons
-kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnLeft "XIA"
-kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key ButtonsOnRight ""
-kwriteconfig6 --file kwinrc --group org.kde.kdecoration2 --key BorderSize "None"
+write_kconfig kwinrc org.kde.kdecoration2 ButtonsOnLeft "XIA"
+write_kconfig kwinrc org.kde.kdecoration2 ButtonsOnRight ""
+write_kconfig kwinrc org.kde.kdecoration2 BorderSize "None"
 
 # Window behavior
-kwriteconfig6 --file kwinrc --group Windows --key Placement "Centered"
-kwriteconfig6 --file kwinrc --group Compositing --key AnimationSpeed "3"
+write_kconfig kwinrc Windows Placement "Centered"
+write_kconfig kwinrc Compositing AnimationSpeed "3"
 
 # KWin effects
-kwriteconfig6 --file kwinrc --group Plugins --key blurEnabled "true"
-kwriteconfig6 --file kwinrc --group Plugins --key contrastEnabled "true"
-kwriteconfig6 --file kwinrc --group Plugins --key overviewEnabled "true"
-kwriteconfig6 --file kwinrc --group Plugins --key slideEnabled "true"
-kwriteconfig6 --file kwinrc --group Plugins --key magiclampEnabled "true"
+write_kconfig kwinrc Plugins blurEnabled "true"
+write_kconfig kwinrc Plugins contrastEnabled "true"
+write_kconfig kwinrc Plugins overviewEnabled "true"
+write_kconfig kwinrc Plugins slideEnabled "true"
+write_kconfig kwinrc Plugins magiclampEnabled "true"
 
 # Overview hot corner (top-left)
-kwriteconfig6 --file kwinrc --group Effect-overview --key BorderActivate "9"
+write_kconfig kwinrc Effect-overview BorderActivate "9"
 
 # Fonts
-kwriteconfig6 --file kdeglobals --group General --key font "Inter,10,-1,5,50,0,0,0,0,0"
-kwriteconfig6 --file kdeglobals --group General --key fixed "JetBrains Mono,10,-1,5,50,0,0,0,0,0"
-kwriteconfig6 --file kdeglobals --group General --key smallestReadableFont "Inter,8,-1,5,50,0,0,0,0,0"
-kwriteconfig6 --file kdeglobals --group General --key toolBarFont "Inter,9,-1,5,50,0,0,0,0,0"
-kwriteconfig6 --file kdeglobals --group General --key menuFont "Inter,10,-1,5,50,0,0,0,0,0"
-kwriteconfig6 --file kdeglobals --group WM --key activeFont "Inter,10,-1,5,50,0,0,0,0,0"
+write_kconfig kdeglobals General font "Inter,10,-1,5,50,0,0,0,0,0"
+write_kconfig kdeglobals General fixed "JetBrains Mono,10,-1,5,50,0,0,0,0,0"
+write_kconfig kdeglobals General smallestReadableFont "Inter,8,-1,5,50,0,0,0,0,0"
+write_kconfig kdeglobals General toolBarFont "Inter,9,-1,5,50,0,0,0,0,0"
+write_kconfig kdeglobals General menuFont "Inter,10,-1,5,50,0,0,0,0,0"
+write_kconfig kdeglobals WM activeFont "Inter,10,-1,5,50,0,0,0,0,0"
 
 # Click-to-focus (macOS-like)
-kwriteconfig6 --file kwinrc --group Windows --key FocusPolicy "ClickToFocus"
+write_kconfig kwinrc Windows FocusPolicy "ClickToFocus"
 
 echo "  ✓ KDE settings applied"
 
 # --- Reload ---
-echo "[7/7] Reloading Plasma shell and KWin..."
-qdbus6 org.kde.KWin /KWin reconfigure 2>/dev/null || true
+if [ "$PLASMA_RUNNING" -eq 1 ]; then
+    echo "[7/7] Reloading Plasma shell and KWin..."
+    qdbus6 org.kde.KWin /KWin reconfigure 2>/dev/null || qdbus org.kde.KWin /KWin reconfigure 2>/dev/null || true
+else
+    echo "[7/7] Skipping reload (Plasma is not running; changes will take effect when started)."
+fi
 
 echo ""
 echo "========================================="
