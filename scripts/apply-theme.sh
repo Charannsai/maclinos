@@ -90,7 +90,9 @@ echo "[6/7] Applying KDE configuration..."
 # Color scheme
 write_kconfig kdeglobals General ColorScheme "MaclinOS"
 
-# Window decoration: left-side traffic light buttons
+# Window decoration: Aurorae theme and left-side traffic light buttons
+write_kconfig kwinrc org.kde.kdecoration2 library "org.kde.kwin.aurorae"
+write_kconfig kwinrc org.kde.kdecoration2 theme "__aurorae__svg__MaclinOS"
 write_kconfig kwinrc org.kde.kdecoration2 ButtonsOnLeft "XIA"
 write_kconfig kwinrc org.kde.kdecoration2 ButtonsOnRight ""
 write_kconfig kwinrc org.kde.kdecoration2 BorderSize "None"
@@ -120,12 +122,29 @@ write_kconfig kdeglobals WM activeFont "Inter,10,-1,5,50,0,0,0,0,0"
 # Click-to-focus (macOS-like)
 write_kconfig kwinrc Windows FocusPolicy "ClickToFocus"
 
+# Apply Color Scheme live if CLI tool is available
+if command -v plasma-apply-colorscheme >/dev/null 2>&1; then
+    plasma-apply-colorscheme MaclinOS >/dev/null 2>&1 || true
+fi
+
+# Apply Wallpaper live if CLI tool is available
+WP_FILE="$WALLPAPER_DIR/contents/images/maclinos-flow-light.svg"
+if [ -f "$WP_FILE" ] && command -v plasma-apply-wallpaperimage >/dev/null 2>&1; then
+    plasma-apply-wallpaperimage "$WP_FILE" >/dev/null 2>&1 || true
+fi
+
 echo "  ✓ KDE settings applied"
 
-# --- Reload ---
+# --- Apply Layout and Reload ---
 if [ "$PLASMA_RUNNING" -eq 1 ]; then
-    echo "[7/7] Reloading Plasma shell and KWin..."
-    qdbus6 org.kde.KWin /KWin reconfigure 2>/dev/null || qdbus org.kde.KWin /KWin reconfigure 2>/dev/null || true
+    echo "[7/7] Applying MaclinOS top bar & dock layout and reloading..."
+    LAYOUT_FILE="$PROJECT_DIR/plasma/layout/org.kde.plasma.desktop-layout.js"
+    if [ -f "$LAYOUT_FILE" ]; then
+        LAYOUT_SCRIPT="$(cat "$LAYOUT_FILE")"
+        qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$LAYOUT_SCRIPT" 2>/dev/null || \
+        qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$LAYOUT_SCRIPT" 2>/dev/null || true
+    fi
+    qdbus org.kde.KWin /KWin reconfigure 2>/dev/null || qdbus6 org.kde.KWin /KWin reconfigure 2>/dev/null || true
 else
     echo "[7/7] Skipping reload (Plasma is not running; changes will take effect when started)."
 fi

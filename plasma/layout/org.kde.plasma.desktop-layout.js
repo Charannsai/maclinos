@@ -1,45 +1,35 @@
-[LayoutDefault]
-rows=1
-columns=2
+// MaclinOS Plasma Desktop Layout Script
+// Configures macOS-style top bar and floating bottom dock
 
-# --- Top Bar Panel ---
-[LayoutDefault-panel0]
-location=top
-height=28
-maximumLength=0
-minimumLength=0
-alignment=fill
+// 1. Remove all default panels
+var allPanels = panels();
+for (var i = 0; i < allPanels.length; ++i) {
+    allPanels[i].remove();
+}
 
-# Left: Application Menu (global menu)
-[LayoutDefault-panel0-plugin0]
-plugin=org.kde.plasma.appmenu
+// 2. Create Top Bar (macOS Menubar)
+var topBar = new Panel();
+topBar.location = "top";
+topBar.height = 28;
 
-# Center spacer (pushes clock to center)
-[LayoutDefault-panel0-plugin1]
-plugin=org.kde.plasma.panelspacer
+// Top Bar Widgets: Launcher -> Global Menu -> Spacer -> Clock -> Spacer -> System Tray
+var launcher = topBar.addWidget("org.kde.plasma.kickoff");
+if (launcher) {
+    launcher.currentConfigGroup = ["General"];
+    launcher.writeConfig("icon", "start-here-kde");
+}
 
-# Center: Digital Clock
-[LayoutDefault-panel0-plugin2]
-plugin=org.kde.plasma.digitalclock
+var globalMenu = topBar.addWidget("org.kde.plasma.appmenu");
+var leftSpacer = topBar.addWidget("org.kde.plasma.panelspacer");
+var clock = topBar.addWidget("org.kde.plasma.digitalclock");
+var rightSpacer = topBar.addWidget("org.kde.plasma.panelspacer");
+var tray = topBar.addWidget("org.kde.plasma.systemtray");
 
-# Right spacer (pushes tray to right)
-[LayoutDefault-panel0-plugin3]
-plugin=org.kde.plasma.panelspacer
+// 3. Create Bottom Dock
+var dock = new Panel();
+dock.location = "bottom";
+dock.height = 60;
+dock.alignment = "center";
+dock.hiding = "dodgewindows";
 
-# Right: System Tray
-[LayoutDefault-panel0-plugin4]
-plugin=org.kde.plasma.systemtray
-
-# --- Bottom Dock Panel ---
-[LayoutDefault-panel1]
-location=bottom
-height=68
-maximumLength=0
-minimumLength=0
-alignment=center
-floating=1
-hiding=dodgewindows
-
-# Icon-Only Task Manager (dock behavior)
-[LayoutDefault-panel1-plugin0]
-plugin=org.kde.plasma.icontasks
+var tasks = dock.addWidget("org.kde.plasma.icontasks");
