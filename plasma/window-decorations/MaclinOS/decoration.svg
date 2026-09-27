@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="titlebarActive" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F6F6F6"/>
+      <stop offset="100%" stop-color="#EBEBEB"/>
+    </linearGradient>
+    <linearGradient id="titlebarInactive" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FBFBFB"/>
+      <stop offset="100%" stop-color="#F2F2F2"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Active Window Parts -->
+  <!-- Top-left with macOS 10px rounded corner -->
+  <g id="active-topleft">
+    <path d="M0,28 L16,28 L16,0 L10,0 C4.5,0 0,4.5 0,10 Z" fill="url(#titlebarActive)"/>
+    <path d="M0,10 C0,4.5 4.5,0 10,0 L16,0" fill="none" stroke="#D1D1D6" stroke-width="0.5"/>
+  </g>
+
+  <!-- Top bar center stretch -->
+  <g id="active-top">
+    <rect x="16" y="0" width="32" height="28" fill="url(#titlebarActive)"/>
+    <line x1="16" y1="0" x2="48" y2="0" stroke="#D1D1D6" stroke-width="0.5"/>
+  </g>
+
+  <!-- Top-right with macOS 10px rounded corner -->
+  <g id="active-topright">
+    <path d="M48,0 L54,0 C59.5,0 64,4.5 64,10 L64,28 L48,28 Z" fill="url(#titlebarActive)"/>
+    <path d="M48,0 L54,0 C59.5,0 64,4.5 64,10" fill="none" stroke="#D1D1D6" stroke-width="0.5"/>
+  </g>
+
+  <!-- Active titlebar bottom border (subtle separator) -->
+  <g id="active-center">
+    <rect x="16" y="27.5" width="32" height="0.5" fill="#D6D6DC"/>
+  </g>
+  <g id="active-left">
+    <line x1="0" y1="28" x2="0" y2="64" stroke="#D1D1D6" stroke-width="0.5"/>
+  </g>
+  <g id="active-right">
+    <line x1="64" y1="28" x2="64" y2="64" stroke="#D1D1D6" stroke-width="0.5"/>
+  </g>
+  <g id="active-bottomleft">
+    <rect x="0" y="60" width="4" height="4" fill="none"/>
+  </g>
+  <g id="active-bottom">
+    <line x1="4" y1="64" x2="60" y2="64" stroke="#D1D1D6" stroke-width="0.5"/>
+  </g>
+  <g id="active-bottomright">
+    <rect x="60" y="60" width="4" height="4" fill="none"/>
+  </g>
+
+  <!-- Inactive Window Parts -->
+  <g id="inactive-topleft">
+    <path d="M64,28 L80,28 L80,0 L74,0 C68.5,0 64,4.5 64,10 Z" fill="url(#titlebarInactive)"/>
+    <path d="M64,10 C64,4.5 68.5,0 74,0 L80,0" fill="none" stroke="#E5E5EA" stroke-width="0.5"/>
+  </g>
+  <g id="inactive-top">
+    <rect x="80" y="0" width="32" height="28" fill="url(#titlebarInactive)"/>
+    <line x1="80" y1="0" x2="112" y2="0" stroke="#E5E5EA" stroke-width="0.5"/>
+  </g>
+  <g id="inactive-topright">
+    <path d="M112,0 L118,0 C123.5,0 128,4.5 128,10 L128,28 L112,28 Z" fill="url(#titlebarInactive)"/>
+    <path d="M112,0 L118,0 C123.5,0 128,4.5 128,10" fill="none" stroke="#E5E5EA" stroke-width="0.5"/>
+  </g>
+  <g id="inactive-center">
+    <rect x="80" y="27.5" width="32" height="0.5" fill="#E5E5EA"/>
+  </g>
+  <g id="inactive-left">
+    <line x1="64" y1="28" x2="64" y2="64" stroke="#E5E5EA" stroke-width="0.5"/>
+  </g>
+  <g id="inactive-right">
+    <line x1="128" y1="28" x2="128" y2="64" stroke="#E5E5EA" stroke-width="0.5"/>
+  </g>
+  <g id="inactive-bottomleft">
+    <rect x="64" y="60" width="4" height="4" fill="none"/>
+  </g>
+  <g id="inactive-bottom">
+    <line x1="68" y1="64" x2="124" y2="64" stroke="#E5E5EA" stroke-width="0.5"/>
+  </g>
+  <g id="inactive-bottomright">
+    <rect x="124" y="60" width="4" height="4" fill="none"/>
+  </g>
+</svg>

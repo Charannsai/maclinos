@@ -17,11 +17,27 @@ echo "========================================="
 echo "  MaclinOS Theme Applier"
 echo "========================================="
 
+# Auto-detect display if running in container / Codespaces
+if [ -z "${DISPLAY:-}" ]; then
+    export DISPLAY=":1"
+fi
+
+# Connect to user DBus session if unset or isolated
+if [ -z "${DBUS_SESSION_BUS_ADDRESS:-}" ] || [[ "${DBUS_SESSION_BUS_ADDRESS:-}" != *"unix:"* ]]; then
+    PLASMA_PID=$(pgrep -u "$USER" -x plasmashell 2>/dev/null | head -n1 || true)
+    if [ -n "$PLASMA_PID" ] && [ -r "/proc/$PLASMA_PID/environ" ]; then
+        ADDR=$(grep -z '^DBUS_SESSION_BUS_ADDRESS=' "/proc/$PLASMA_PID/environ" 2>/dev/null | cut -d= -f2- | tr -d '\0' || true)
+        if [ -n "$ADDR" ]; then
+            export DBUS_SESSION_BUS_ADDRESS="$ADDR"
+        fi
+    fi
+fi
+
 # --- Check if KDE Plasma is running ---
 PLASMA_RUNNING=0
 if pgrep -x plasmashell >/dev/null 2>&1; then
     PLASMA_RUNNING=1
-    echo "  Active Plasma session detected."
+    echo "  Active Plasma session detected (Display $DISPLAY)."
 else
     echo "  ℹ️ Note: Plasma shell is not running yet."
     echo "  Theme assets and configs will be installed for next session startup."
@@ -138,13 +154,25 @@ echo "  ✓ KDE settings applied"
 # --- Apply Layout and Reload ---
 if [ "$PLASMA_RUNNING" -eq 1 ]; then
     echo "[7/7] Applying MaclinOS top bar & dock layout and reloading..."
+    
+    # Try look-and-feel applier if available
+    if command -v plasma-apply-lookandfeel >/dev/null 2>&1; then
+        plasma-apply-lookandfeel -a MaclinOS >/dev/null 2>&1 || true
+    fi
+
     LAYOUT_FILE="$PROJECT_DIR/plasma/layout/org.kde.plasma.desktop-layout.js"
     if [ -f "$LAYOUT_FILE" ]; then
         LAYOUT_SCRIPT="$(cat "$LAYOUT_FILE")"
         qdbus org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$LAYOUT_SCRIPT" 2>/dev/null || \
         qdbus6 org.kde.plasmashell /PlasmaShell org.kde.PlasmaShell.evaluateScript "$LAYOUT_SCRIPT" 2>/dev/null || true
     fi
+
     qdbus org.kde.KWin /KWin reconfigure 2>/dev/null || qdbus6 org.kde.KWin /KWin reconfigure 2>/dev/null || true
+
+    # Clean restart of plasmashell to guarantee instantaneous visual refresh
+    killall plasmashell 2>/dev/null || true
+    sleep 1
+    nohup kstart5 plasmashell >/dev/null 2>&1 || nohup kstart6 plasmashell >/dev/null 2>&1 || nohup plasmashell >/dev/null 2>&1 &
 else
     echo "[7/7] Skipping reload (Plasma is not running; changes will take effect when started)."
 fi
