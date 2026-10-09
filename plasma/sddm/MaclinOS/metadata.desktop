@@ -1,0 +1,13 @@
+[SddmGreeterTheme]
+Name=MaclinOS
+Description=macOS-inspired SDDM login theme for MaclinOS
+Author=MaclinOS Project
+Copyright=(c) MaclinOS Project, GPL-3.0-or-later
+Screenshot=preview.png
+MainScript=Main.qml
+ConfigFile=theme.conf
+TranslationsDirectory=translations
+Email=
+Version=0.1.0
+Website=
+Type=sddm-theme

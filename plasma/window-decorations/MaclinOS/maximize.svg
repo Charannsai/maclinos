@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- MaclinOS Window Decoration: Maximize Button -->
+  <!-- Traffic light style - Green -->
+  <defs>
+    <linearGradient id="maxGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3AD64E"/>
+      <stop offset="100%" stop-color="#28C840"/>
+    </linearGradient>
+    <linearGradient id="maxGradHover" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#22B836"/>
+      <stop offset="100%" stop-color="#1AAB29"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Normal -->
+  <circle cx="6" cy="6" r="5.5" fill="url(#maxGrad)" stroke="rgba(0,0,0,0.12)" stroke-width="0.5"/>
+
+  <!-- Hover (with expand arrows) -->
+  <circle cx="18" cy="6" r="5.5" fill="url(#maxGradHover)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+  <!-- Diagonal expand arrows -->
+  <line x1="15.8" y1="3.8" x2="17" y2="3.8" stroke="rgba(0,0,0,0.5)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="15.8" y1="3.8" x2="15.8" y2="5" stroke="rgba(0,0,0,0.5)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="20.2" y1="8.2" x2="19" y2="8.2" stroke="rgba(0,0,0,0.5)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="20.2" y1="8.2" x2="20.2" y2="7" stroke="rgba(0,0,0,0.5)" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Press -->
+  <circle cx="30" cy="6" r="5.5" fill="#148A1E" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
+  <line x1="27.8" y1="3.8" x2="29" y2="3.8" stroke="rgba(0,0,0,0.6)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="27.8" y1="3.8" x2="27.8" y2="5" stroke="rgba(0,0,0,0.6)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="32.2" y1="8.2" x2="31" y2="8.2" stroke="rgba(0,0,0,0.6)" stroke-width="1" stroke-linecap="round"/>
+  <line x1="32.2" y1="8.2" x2="32.2" y2="7" stroke="rgba(0,0,0,0.6)" stroke-width="1" stroke-linecap="round"/>
+
+  <!-- Inactive -->
+  <circle cx="42" cy="6" r="5.5" fill="#D4D4D8" stroke="rgba(0,0,0,0.08)" stroke-width="0.5"/>
+</svg>

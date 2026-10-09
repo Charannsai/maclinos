@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="trashCan" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#E2E8F0" />
+      <stop offset="50%" stop-color="#CBD5E1" />
+      <stop offset="100%" stop-color="#94A3B8" />
+    </linearGradient>
+    <linearGradient id="trashRim" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FFFFFF" />
+      <stop offset="100%" stop-color="#CBD5E1" />
+    </linearGradient>
+    <filter id="trashGlow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="#0F172A" flood-opacity="0.2" />
+    </filter>
+  </defs>
+
+  <g filter="url(#trashGlow)">
+    <!-- Tapered Trash Bin Body -->
+    <path d="M38,40 L44,106 C44.5,111 49,115 54,115 L74,115 C79,115 83.5,111 84,106 L90,40 Z" fill="url(#trashCan)" />
+    
+    <!-- Rib / Fluting details -->
+    <path d="M52,48 L55,102" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+    <path d="M64,48 L64,102" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+    <path d="M76,48 L73,102" stroke="#64748B" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+
+    <!-- Rim / Lid Base -->
+    <rect x="34" y="34" width="60" height="8" rx="4" fill="url(#trashRim)" stroke="#94A3B8" stroke-width="1" />
+
+    <!-- Lid Handle -->
+    <path d="M56,34 L56,28 C56,25.5 58,24 60.5,24 L67.5,24 C70,24 72,25.5 72,28 L72,34" fill="none" stroke="#94A3B8" stroke-width="3" stroke-linecap="round" />
+  </g>
+</svg>

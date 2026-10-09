@@ -1,0 +1,47 @@
+[Desktop Entry]
+Name=MaclinOS
+Comment=A macOS-inspired global theme for KDE Plasma
+X-KDE-PluginInfo-Author=MaclinOS Project
+X-KDE-PluginInfo-Email=maclinos@example.com
+X-KDE-PluginInfo-Name=MaclinOS
+X-KDE-PluginInfo-Version=0.1.0
+X-KDE-PluginInfo-License=GPL-3.0
+X-KDE-PluginInfo-Category=
+Type=Service
+
+X-Plasma-API=5.0
+X-Plasma-MainScript=defaults
+
+[ContainmentActionDefaults]
+
+[DesktopTheme]
+name=MaclinOS
+
+[KWin]
+BorderSize=0
+ButtonsOnLeft=XIA
+ButtonsOnRight=
+
+[Colors]
+file=MaclinOS.colors
+
+[Wallpaper]
+defaultWallpaperTheme=MaclinOS
+defaultFileSuffix=.jpg
+defaultWidth=3840
+defaultHeight=2160
+
+[Icons]
+Theme=MaclinOS
+
+[Cursors]
+Theme=MaclinOS
+
+[SplashScreen]
+Theme=MaclinOS
+
+[LockScreen]
+Theme=MaclinOS
+
+[SDDM]
+Theme=MaclinOS

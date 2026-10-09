@@ -1,0 +1,7 @@
+maclinos-defaults (0.1.0-1) trixie; urgency=medium
+
+  * Initial release of MaclinOS system defaults.
+  * Provides skeleton configuration for new users in /etc/skel.
+  * Configures SDDM and default desktop session settings.
+
+ -- MaclinOS Project <maclinos@example.com>  Fri, 09 Oct 2026 12:00:00 +0000

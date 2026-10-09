@@ -1,0 +1,62 @@
+name: Smoke Tests
+
+on:
+  workflow_run:
+    workflows: ["Build ISO"]
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  vm-smoke-test:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' || github.event_name == 'workflow_dispatch' }}
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install QEMU
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y qemu-system-x86 qemu-utils ovmf
+
+      - name: Download ISO artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: maclinos-iso
+          path: ./iso/
+          run-id: ${{ github.event.workflow_run.id }}
+        continue-on-error: true
+
+      - name: Boot ISO in QEMU
+        if: hashFiles('iso/*.iso') != ''
+        run: |
+          ISO_FILE=$(ls iso/*.iso | head -1)
+          echo "Booting: $ISO_FILE"
+
+          # Create a test disk
+          qemu-img create -f qcow2 test-disk.qcow2 20G
+
+          # Boot in headless mode with serial console
+          timeout 300 qemu-system-x86_64 \
+            -m 4G \
+            -smp 2 \
+            -enable-kvm \
+            -bios /usr/share/OVMF/OVMF_CODE.fd \
+            -cdrom "$ISO_FILE" \
+            -hda test-disk.qcow2 \
+            -display none \
+            -serial stdio \
+            -no-reboot \
+            2>&1 | tee boot-log.txt || true
+
+          echo "Boot test completed. Check boot-log.txt for details."
+
+      - name: Upload boot log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: boot-log
+          path: boot-log.txt
+          retention-days: 7

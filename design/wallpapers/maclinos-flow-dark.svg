@@ -1,0 +1,70 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 3840 2160" width="3840" height="2160">
+  <defs>
+    <linearGradient id="bgDark" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0B0D13" />
+      <stop offset="40%" stop-color="#121622" />
+      <stop offset="70%" stop-color="#0E121B" />
+      <stop offset="100%" stop-color="#08090E" />
+    </linearGradient>
+
+    <radialGradient id="spaceGlow" cx="50%" cy="40%" r="70%">
+      <stop offset="0%" stop-color="#1E293B" stop-opacity="0.6" />
+      <stop offset="60%" stop-color="#0F172A" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#000000" stop-opacity="0" />
+    </radialGradient>
+
+    <linearGradient id="neonWave1" x1="0%" y1="0%" x2="100%" y2="80%">
+      <stop offset="0%" stop-color="#0A84FF" stop-opacity="0.75" />
+      <stop offset="45%" stop-color="#5E5CE6" stop-opacity="0.65" />
+      <stop offset="100%" stop-color="#BF5AF2" stop-opacity="0.8" />
+    </linearGradient>
+
+    <linearGradient id="neonWave2" x1="10%" y1="100%" x2="90%" y2="0%">
+      <stop offset="0%" stop-color="#00C7BE" stop-opacity="0.4" />
+      <stop offset="50%" stop-color="#0A84FF" stop-opacity="0.6" />
+      <stop offset="100%" stop-color="#64D2FF" stop-opacity="0.7" />
+    </linearGradient>
+
+    <linearGradient id="neonWarm" x1="0%" y1="50%" x2="100%" y2="50%">
+      <stop offset="0%" stop-color="#FF375F" stop-opacity="0.5" />
+      <stop offset="60%" stop-color="#FF9F0A" stop-opacity="0.4" />
+      <stop offset="100%" stop-color="#FF453A" stop-opacity="0.3" />
+    </linearGradient>
+
+    <filter id="softBlurDark" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="95" />
+    </filter>
+
+    <filter id="ambientBlurDark" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="150" />
+    </filter>
+  </defs>
+
+  <!-- Deep Obsidian Background -->
+  <rect width="3840" height="2160" fill="url(#bgDark)" />
+  <rect width="3840" height="2160" fill="url(#spaceGlow)" />
+
+  <!-- Ambient Neon Nebula Blooms -->
+  <g filter="url(#ambientBlurDark)">
+    <circle cx="800" cy="1500" r="750" fill="#0A84FF" opacity="0.3" />
+    <circle cx="2900" cy="800" r="900" fill="#BF5AF2" opacity="0.25" />
+    <circle cx="1800" cy="1150" r="650" fill="#00C7BE" opacity="0.2" />
+    <circle cx="3200" cy="1700" r="700" fill="#FF375F" opacity="0.2" />
+  </g>
+
+  <!-- Flowing Luminescent Waves -->
+  <g filter="url(#softBlurDark)">
+    <!-- Primary Neon Wave -->
+    <path d="M-200,1350 C600,1850 1450,950 2250,1450 C2850,1850 3450,1250 4100,1050 L4100,2300 L-200,2300 Z" fill="url(#neonWave1)" opacity="0.7" />
+
+    <!-- Secondary Cyan/Azure Stream -->
+    <path d="M-200,750 C800,550 1350,1450 2150,1150 C2950,850 3550,1550 4100,1250 L4100,2300 L-200,2300 Z" fill="url(#neonWave2)" opacity="0.5" />
+
+    <!-- Radiant Accent -->
+    <path d="M-100,1750 C700,1150 1650,1650 2450,1050 C3050,650 3650,950 4100,750 L4100,2300 L-100,2300 Z" fill="url(#neonWarm)" opacity="0.35" />
+  </g>
+
+  <!-- Laser Edge Highlights -->
+  <path d="M-100,1200 C900,1500 1600,1000 2400,1300 C3100,1550 3650,1100 4050,1000" fill="none" stroke="#64D2FF" stroke-width="2.5" opacity="0.5" />
+  <path d="M-100,1230 C850,1520 1550,1020 2350,1320 C3050,1570 3600,1120 4050,1020" fill="none" stroke="#BF5AF2" stroke-width="1.5" opacity="0.4" />
+</svg>

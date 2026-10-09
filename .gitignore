@@ -1,0 +1,68 @@
+# MaclinOS .gitignore
+
+# Build outputs
+output/
+*.iso
+*.img
+*.qcow2
+
+# live-build artifacts
+image/.build/
+image/binary/
+image/cache/
+image/chroot/
+image/local/
+image/*.iso
+image/*.hybrid.iso
+image/*.contents
+image/*.files
+image/*.packages
+image/*.zsync
+
+# Compiled binaries
+*.o
+*.so
+*.a
+*.exe
+*.moc
+*.qmlc
+
+# Qt/KDE build
+build/
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+Makefile
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temporary
+*.tmp
+*.bak
+*.orig
+
+# Logs
+*.log
+
+# Debian packaging
+packages/*/debian/.debhelper/
+packages/*/*.deb
+packages/*/*.changes
+packages/*/*.buildinfo
+packages/*/*.dsc
+packages/*/*.tar.*
+
+# Secrets
+*.key
+*.pem
+*.gpg

@@ -1,0 +1,35 @@
+#!/bin/sh
+set -e
+
+case "$1" in
+    configure)
+        # Create symlink for recovery script if needed
+        if [ -f /usr/bin/recover-desktop.sh ]; then
+            ln -sf /usr/bin/recover-desktop.sh /usr/bin/maclinos-recover
+        fi
+        if [ -f /usr/bin/apply-theme.sh ]; then
+            ln -sf /usr/bin/apply-theme.sh /usr/bin/maclinos-apply-theme
+        fi
+
+        # Ensure skeleton directory structure exists for new users
+        mkdir -p /etc/skel/.config
+
+        # Set default SDDM theme if sddm is installed
+        if [ -d /etc/sddm.conf.d ]; then
+            cat > /etc/sddm.conf.d/maclinos.conf << 'EOF'
+[Theme]
+Current=MaclinOS
+
+[General]
+InputMethod=
+
+[Wayland]
+SessionDir=/usr/share/wayland-sessions
+EOF
+        fi
+        ;;
+esac
+
+#DEBHELPER#
+
+exit 0

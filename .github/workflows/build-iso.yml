@@ -1,0 +1,57 @@
+name: Build ISO
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number (e.g., 0.1.0)'
+        required: true
+        default: '0.1.0'
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-iso:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up build environment
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            live-build \
+            debootstrap \
+            squashfs-tools \
+            xorriso \
+            isolinux \
+            syslinux-common \
+            grub-efi-amd64-bin
+
+      - name: Build ISO
+        run: |
+          sudo ./scripts/build-iso.sh
+        env:
+          VERSION: ${{ github.event.inputs.version || '0.1.0' }}
+
+      - name: Upload ISO
+        uses: actions/upload-artifact@v4
+        with:
+          name: maclinos-iso
+          path: |
+            output/*.iso
+            output/*.sha256
+            output/*-manifest.txt
+          retention-days: 14
+
+      - name: Upload build log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-log
+          path: output/build-*.log
+          retention-days: 7

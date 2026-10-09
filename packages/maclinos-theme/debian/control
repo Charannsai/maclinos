@@ -1,0 +1,58 @@
+Source: maclinos-theme
+Section: kde
+Priority: optional
+Maintainer: MaclinOS Project <maclinos@example.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+Homepage: https://github.com/your-org/maclinos
+
+Package: maclinos-theme
+Architecture: all
+Depends: ${misc:Depends},
+ maclinos-plasma-theme,
+ maclinos-icons,
+ maclinos-cursors,
+ maclinos-wallpapers,
+ maclinos-sddm-theme
+Recommends: maclinos-defaults,
+ maclinos-kwin-scripts
+Description: MaclinOS Desktop Theme (metapackage)
+ A macOS-inspired desktop theme for KDE Plasma on Debian.
+ This metapackage installs all MaclinOS theme components including
+ color schemes, window decorations, icons, cursors, wallpapers,
+ and the SDDM login theme.
+ .
+ MaclinOS provides an attractive, cohesive macOS-inspired experience
+ while preserving the full Linux operating system underneath.
+
+Package: maclinos-plasma-theme
+Architecture: all
+Depends: ${misc:Depends}, plasma-desktop
+Description: MaclinOS Plasma Theme
+ KDE Plasma global theme, color schemes, desktop theme,
+ and window decorations for MaclinOS.
+
+Package: maclinos-icons
+Architecture: all
+Depends: ${misc:Depends}
+Description: MaclinOS Icon Theme
+ Original icon theme for MaclinOS, providing consistent
+ icons across the desktop environment.
+
+Package: maclinos-cursors
+Architecture: all
+Depends: ${misc:Depends}
+Description: MaclinOS Cursor Theme
+ Custom cursor theme for MaclinOS.
+
+Package: maclinos-wallpapers
+Architecture: all
+Depends: ${misc:Depends}
+Description: MaclinOS Wallpapers
+ Collection of original wallpapers for MaclinOS.
+
+Package: maclinos-sddm-theme
+Architecture: all
+Depends: ${misc:Depends}, sddm
+Description: MaclinOS SDDM Login Theme
+ macOS-inspired SDDM login and lock screen theme.

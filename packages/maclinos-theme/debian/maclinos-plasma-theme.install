@@ -1,0 +1,3 @@
+plasma/color-schemes/*.colors usr/share/color-schemes/
+plasma/global-theme/* usr/share/plasma/look-and-feel/MaclinOS/
+plasma/window-decorations/MaclinOS/* usr/share/aurorae/themes/MaclinOS/

@@ -1,0 +1,33 @@
+[Icon Theme]
+Name=MaclinOS
+Comment=Modern macOS-inspired icon theme for MaclinOS
+Inherits=breeze,hicolor
+Directories=places/scalable,apps/scalable,status/scalable,actions/scalable
+
+[places/scalable]
+Size=48
+Type=Scalable
+MinSize=16
+MaxSize=512
+Context=Places
+
+[apps/scalable]
+Size=48
+Type=Scalable
+MinSize=16
+MaxSize=512
+Context=Applications
+
+[status/scalable]
+Size=24
+Type=Scalable
+MinSize=16
+MaxSize=128
+Context=Status
+
+[actions/scalable]
+Size=24
+Type=Scalable
+MinSize=16
+MaxSize=128
+Context=Actions

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" width="128" height="128">
+  <defs>
+    <linearGradient id="folderBack" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#3A9BF7" />
+      <stop offset="100%" stop-color="#1973E8" />
+    </linearGradient>
+    <linearGradient id="folderFront" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#64B5F6" />
+      <stop offset="100%" stop-color="#2196F3" />
+    </linearGradient>
+    <filter id="folderShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#002D62" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Folder Back Tab & Base -->
+  <path d="M16,30 C16,23.37 21.37,18 28,18 L50,18 C54.5,18 58.7,20.5 60.8,24.5 L64.5,31.5 C65.6,33.5 67.7,34.8 70,34.8 L100,34.8 C106.63,34.8 112,40.17 112,46.8 L112,96 C112,102.63 106.63,108 100,108 L28,108 C21.37,108 16,102.63 16,96 Z" fill="url(#folderBack)" />
+
+  <!-- Folder Front Pocket -->
+  <g filter="url(#folderShadow)">
+    <path d="M16,46 C16,40.5 20.5,36 26,36 L102,36 C107.5,36 112,40.5 112,46 L112,96 C112,102.63 106.63,108 100,108 L28,108 C21.37,108 16,102.63 16,96 Z" fill="url(#folderFront)" />
+  </g>
+
+  <!-- Inner Soft Highlight Line -->
+  <path d="M26,37.5 L102,37.5" stroke="#FFFFFF" stroke-width="1" stroke-opacity="0.4" fill="none" />
+</svg>

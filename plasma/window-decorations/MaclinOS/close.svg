@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 48 48">
+  <!-- MaclinOS Window Decoration: Close Button -->
+  <!-- Traffic light style - Red -->
+  <defs>
+    <linearGradient id="closeGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF6961"/>
+      <stop offset="100%" stop-color="#FF3B30"/>
+    </linearGradient>
+    <linearGradient id="closeGradHover" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#FF453A"/>
+      <stop offset="100%" stop-color="#E0352B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 4 states: 12x12 each, stacked vertically -->
+  <!-- Row 1: Normal -->
+  <circle cx="6" cy="6" r="5.5" fill="url(#closeGrad)" stroke="rgba(0,0,0,0.12)" stroke-width="0.5"/>
+
+  <!-- Row 2: Hover -->
+  <circle cx="18" cy="6" r="5.5" fill="url(#closeGradHover)" stroke="rgba(0,0,0,0.15)" stroke-width="0.5"/>
+  <!-- X icon on hover -->
+  <line x1="15.5" y1="3.5" x2="20.5" y2="8.5" stroke="rgba(0,0,0,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="20.5" y1="3.5" x2="15.5" y2="8.5" stroke="rgba(0,0,0,0.5)" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Row 3: Press -->
+  <circle cx="30" cy="6" r="5.5" fill="#CC2E26" stroke="rgba(0,0,0,0.2)" stroke-width="0.5"/>
+  <line x1="27.5" y1="3.5" x2="32.5" y2="8.5" stroke="rgba(0,0,0,0.6)" stroke-width="1.2" stroke-linecap="round"/>
+  <line x1="32.5" y1="3.5" x2="27.5" y2="8.5" stroke="rgba(0,0,0,0.6)" stroke-width="1.2" stroke-linecap="round"/>
+
+  <!-- Row 4: Inactive -->
+  <circle cx="42" cy="6" r="5.5" fill="#D4D4D8" stroke="rgba(0,0,0,0.08)" stroke-width="0.5"/>
+</svg>

@@ -1,0 +1,24 @@
+Source: maclinos-defaults
+Section: kde
+Priority: optional
+Maintainer: MaclinOS Project <maclinos@example.com>
+Build-Depends: debhelper-compat (= 13)
+Standards-Version: 4.6.2
+
+Package: maclinos-defaults
+Architecture: all
+Depends: ${misc:Depends}, plasma-desktop, sddm
+Recommends: maclinos-theme,
+ fonts-inter,
+ fonts-jetbrains-mono,
+ firefox-esr,
+ dolphin,
+ konsole,
+ kate,
+ gwenview
+Description: MaclinOS Default Settings
+ System-wide and per-user default settings for MaclinOS.
+ Configures KDE Plasma with macOS-inspired panel layout,
+ keyboard shortcuts, window behavior, fonts, and application
+ defaults. Settings are applied to new user accounts via
+ /etc/skel and system-wide via /etc/xdg.

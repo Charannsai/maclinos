@@ -1,0 +1,99 @@
+name: Build Theme
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'plasma/**'
+      - 'design/**'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'plasma/**'
+      - 'design/**'
+
+jobs:
+  validate-theme:
+    runs-on: ubuntu-latest
+    container:
+      image: debian:trixie
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: |
+          apt-get update
+          apt-get install -y \
+            plasma-sdk \
+            qt6-declarative-dev \
+            imagemagick \
+            file \
+            findutils
+
+      - name: Validate color schemes
+        run: |
+          echo "Checking color scheme files..."
+          for f in plasma/color-schemes/*.colors; do
+            echo "  Validating: $f"
+            if ! grep -q '\[Colors:View\]' "$f"; then
+              echo "ERROR: Missing [Colors:View] section in $f"
+              exit 1
+            fi
+            if ! grep -q '\[Colors:Window\]' "$f"; then
+              echo "ERROR: Missing [Colors:Window] section in $f"
+              exit 1
+            fi
+          done
+          echo "  ✓ All color schemes valid"
+
+      - name: Validate SVG assets
+        run: |
+          echo "Checking SVG files..."
+          find plasma/ design/ -name '*.svg' -exec file {} \; | while read line; do
+            if ! echo "$line" | grep -qi 'svg\|xml'; then
+              echo "ERROR: Invalid SVG: $line"
+              exit 1
+            fi
+          done
+          echo "  ✓ All SVG files valid"
+
+      - name: Validate QML files
+        run: |
+          echo "Checking QML syntax..."
+          find plasma/ -name '*.qml' -exec sh -c '
+            for f; do
+              echo "  Checking: $f"
+              # Basic syntax check: ensure valid QML structure
+              if ! head -5 "$f" | grep -qE "^import|^/\*"; then
+                echo "WARNING: $f may have invalid QML header"
+              fi
+            done
+          ' sh {} +
+          echo "  ✓ QML validation complete"
+
+      - name: Check for Apple trademarks
+        run: |
+          echo "Scanning for Apple trademarks..."
+          TRADEMARK_WORDS="macOS|Apple Inc|Cupertino|iPhone|iPad|AirDrop|iCloud|Finder\.app|Safari\.app"
+          if grep -rniE "$TRADEMARK_WORDS" plasma/ design/ docs/ --include='*.qml' --include='*.svg' --include='*.desktop' --include='*.colors'; then
+            echo "WARNING: Potential Apple trademark references found. Review before release."
+          else
+            echo "  ✓ No Apple trademarks found"
+          fi
+
+      - name: Package theme
+        run: |
+          echo "Creating theme archive..."
+          mkdir -p output
+          tar czf output/maclinos-theme-${{ github.sha }}.tar.gz \
+            plasma/ design/tokens/ design/wallpapers/ design/icons/
+          echo "  ✓ Theme packaged"
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: maclinos-theme
+          path: output/maclinos-theme-*.tar.gz
+          retention-days: 30

@@ -1,0 +1,30 @@
+[General]
+Name=MaclinOS
+Comment=macOS-inspired window decoration
+Author=MaclinOS Project
+
+[Layout]
+TitleAlignment=Center
+TitleVerticalAlignment=Center
+ButtonWidth=12
+ButtonHeight=12
+ButtonSpacing=8
+ButtonMarginTop=8
+PaddingTop=0
+PaddingBottom=0
+PaddingLeft=8
+PaddingRight=8
+TitleEdgeTop=4
+TitleEdgeBottom=4
+TitleEdgeLeft=60
+TitleEdgeRight=8
+TitleBorderLeft=0
+TitleBorderRight=0
+TitleHeight=28
+BorderLeft=0
+BorderRight=0
+BorderBottom=0
+BorderTop=0
+
+[Button]
+ButtonOrder=XIA_
